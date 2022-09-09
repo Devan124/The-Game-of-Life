@@ -3,26 +3,27 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace Game_of_Life
 {
     public partial class Form1 : Form
     {
-        public int rows;
-        public int cols;
 
         // The universe array
-        public bool[,] universe = new bool[20, 20];
-        public bool[,] scratchPad = new bool[20, 20];
+        bool[,] universe = new bool[20, 20];
+        bool[,] scratchPad = new bool[20, 20];
 
         // Drawing colors
-        Color gridColor = Color.Black;
-        Color cellColor = Color.LimeGreen;
+        Color gridColor = Color.FromArgb(0, 0, 0);
+        Color cellColor = Color.FromArgb(253, 217, 181);
 
         // The Timer class
         Timer timer = new Timer();
@@ -35,6 +36,7 @@ namespace Game_of_Life
             InitializeComponent();
 
             // Setup the timer
+
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
@@ -49,18 +51,17 @@ namespace Game_of_Life
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
                     int sum = CountNeighborsToroidal(x, y);
-                    
 
-                    if (universe[x,y])
+                    if (universe[x, y])
                     {
-                       if (sum < 2 || sum > 3)
-                       {
-                            scratchPad[x, y] = false;
-                       }
-                       else if (sum == 2 || sum == 3)
-                       {
+                        if (sum == 2 || sum == 3)
+                        {
                             scratchPad[x, y] = true;
-                       }
+                        }
+                        if (sum < 2 || sum > 3)
+                        {
+                            scratchPad[x, y] = false;
+                        }
                     }
                     else
                     {
@@ -73,14 +74,11 @@ namespace Game_of_Life
             }
             bool[,] temp = universe;
             universe = scratchPad;
-            temp = scratchPad;
-            graphicsPanel1.Invalidate();
-
-            // Increment generation count
+            scratchPad = temp;
             generations++;
-
-            // Update status strip generations
             toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
+            graphicsPanel1.Invalidate();
+            Array.Clear(temp, 0, temp.Length);
         }
 
         // The event called by the timer every Interval milliseconds.
@@ -133,7 +131,7 @@ namespace Game_of_Life
         }
 
         private int CountNeighborsFinite(int x, int y)
-        { 
+        {
 
             int count = 0;
             int xLen = universe.GetLength(0);
@@ -232,11 +230,17 @@ namespace Game_of_Life
 
         private void Restart()
         {
-           universe = new bool [100,100];
-           scratchPad = new bool[100, 100];
-           generations = 0;
-           timer.Start();
-           Refresh();
+            var dim0 = universe.GetLength(0);
+            var dim1 = universe.GetLength(1);
+
+            var dim2 = scratchPad.GetLength(0);
+            var dim3 = scratchPad.GetLength(1);
+
+            universe = new bool[dim0, dim1];
+            scratchPad = new bool[dim2, dim3];
+
+            generations = 0;
+            Refresh();
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -276,6 +280,7 @@ namespace Game_of_Life
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Restart();
+            timer.Enabled = false;
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -283,31 +288,146 @@ namespace Game_of_Life
 
         }
 
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        private void x10ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            int userinput = int.Parse(row.Text);
-            if (int.TryParse(row.Text, out userinput))
-            {
-                rows = userinput;
-            }
-            else
-            {
-                MessageBox.Show("Please enter an integer!", "Error");
-            }
+            universe = new bool[10, 10];
+            scratchPad = new bool[10, 10];
+            timer.Enabled = false;
+            generations = 0;
+            Refresh();
         }
 
-        private void columns_Click(object sender, EventArgs e)
+        private void x20ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int userinput = int.Parse(columns.Text);
-            if(int.TryParse(columns.Text, out userinput))
-            {
-                cols = userinput;
+            universe = new bool[20, 20];
+            scratchPad = new bool[20, 20];
+            timer.Enabled = false;
+            generations = 0;
+            Refresh();
+        }
 
-            }
-            else
+        private void x50ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            universe = new bool[50, 50];
+            scratchPad = new bool[50, 50];
+            timer.Enabled = false;
+            generations = 0;
+            Refresh();
+        }
+
+        private void x100ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            universe = new bool[100, 100];
+            scratchPad = new bool[100, 100];
+            timer.Enabled = false;
+            generations = 0;
+            Refresh();
+        }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ComboBox comboBox = new ComboBox();
+
+            comboBox.Show();
+
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void darkModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            graphicsPanel1.BackColor = Color.FromArgb(38, 28, 44);
+            gridColor = Color.FromArgb(92, 82, 127);
+            cellColor = Color.FromArgb(110, 133, 178);
+            graphicsPanel1.Invalidate();
+        }
+
+        private void lightModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            graphicsPanel1.BackColor = Color.FromArgb(232, 246, 239);
+            gridColor = Color.FromArgb(39, 123, 192);
+            cellColor = Color.FromArgb(184, 223, 216);
+            graphicsPanel1.Invalidate();
+        }
+
+        private void matrixToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            graphicsPanel1.BackColor = Color.FromArgb(13, 2, 8);
+            gridColor = Color.FromArgb(0, 59, 0);
+            cellColor = Color.FromArgb(0, 255, 65);
+            graphicsPanel1.Invalidate();
+        }
+
+        private void defaultToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            graphicsPanel1.BackColor = Color.FromArgb(255, 255, 255);
+            gridColor = Color.FromArgb(0, 0, 0);
+            cellColor = Color.FromArgb(253, 217, 181);
+            graphicsPanel1.Invalidate();
+        }
+
+        private void halloweenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            graphicsPanel1.BackColor = Color.FromArgb(33, 23, 23);
+            gridColor = Color.FromArgb(163, 74, 40);
+            cellColor = Color.FromArgb(245, 139, 84);
+            graphicsPanel1.Invalidate();
+        }
+
+        private void christmasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            graphicsPanel1.BackColor = Color.FromArgb(165, 56, 66);
+            gridColor = Color.FromArgb(66, 133, 91);
+            cellColor = Color.FromArgb(92, 148, 55);
+            graphicsPanel1.Invalidate();
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog savefiledlg = new SaveFileDialog();
+            savefiledlg.Filter = "All Files|*.*|Cells|*.cells";
+            savefiledlg.FilterIndex = 2; savefiledlg.DefaultExt = "cells";
+
+            if (DialogResult.OK == savefiledlg.ShowDialog())
             {
-                MessageBox.Show("Please enter an integer!", "Error");
+                StreamWriter writer = new StreamWriter(savefiledlg.FileName);
+
+                // Write any comments you want to include first.
+                // Prefix all comment strings with an exclamation point.
+                // Use WriteLine to write the strings to the file. 
+                // It appends a CRLF for you.
+                writer.WriteLine("!This is my comment.");
+
+                // Iterate through the universe one row at a time.
+                for (int y = 0; y < universe.GetLength(0); y++)
+                {
+                    // Create a string to represent the current row.
+                    String currentRow = string.Empty;
+                    
+                    // Iterate through the current row one cell at a time.
+                    for (int x = 0; x < universe.GetLength(1); x++)
+                    {
+                        // If the universe[x,y] is alive then append 'O' (capital O)
+                        // to the row string.
+                        if (universe[x, y] == true)
+                        {
+                            currentRow.Append('O');
+                        }
+                        else if (universe[x, y] == false)
+                        {
+                            currentRow.Append('.');
+                        }
+                    }
+                    // Once the current row has been read through and the 
+                    // string constructed then write it to the file using WriteLine.
+                    
+                }
+
+                // After all rows and columns have been written then close the file.
+                writer.Close();
             }
         }
     }
