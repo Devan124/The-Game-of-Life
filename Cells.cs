@@ -10,5 +10,6 @@ namespace Game_of_Life
     class Cells
     {
         public bool isAlive = true;
+
     }
 }

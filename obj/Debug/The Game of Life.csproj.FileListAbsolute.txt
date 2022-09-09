@@ -9,3 +9,14 @@ C:\Users\devan\OneDrive\Documents\Game of Life\Game-of-Life\obj\Debug\The Game o
 C:\Users\devan\OneDrive\Documents\Game of Life\Game-of-Life\obj\Debug\The Game of Life.csproj.CoreCompileInputs.cache
 C:\Users\devan\OneDrive\Documents\Game of Life\Game-of-Life\obj\Debug\Game of Life.exe
 C:\Users\devan\OneDrive\Documents\Game of Life\Game-of-Life\obj\Debug\Game of Life.pdb
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Game of Life.exe.config
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Game of Life.exe
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Game of Life.pdb
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\The Game of Life.csproj.AssemblyReference.cache
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\The Game of Life.csproj.SuggestedBindingRedirects.cache
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\Game_of_Life.Form1.resources
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\Game_of_Life.Properties.Resources.resources
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\The Game of Life.csproj.GenerateResource.cache
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\The Game of Life.csproj.CoreCompileInputs.cache
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\Game of Life.exe
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\Game of Life.pdb

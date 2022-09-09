@@ -228,8 +228,11 @@ namespace Game_of_Life
             }
         }
 
-        private void Restart()
+        private bool[,] Restart()
         {
+            generations = 0;
+            timer.Enabled = false;
+
             var dim0 = universe.GetLength(0);
             var dim1 = universe.GetLength(1);
 
@@ -239,8 +242,8 @@ namespace Game_of_Life
             universe = new bool[dim0, dim1];
             scratchPad = new bool[dim2, dim3];
 
-            generations = 0;
             Refresh();
+            return scratchPad;
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -280,7 +283,6 @@ namespace Game_of_Life
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Restart();
-            timer.Enabled = false;
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -423,9 +425,8 @@ namespace Game_of_Life
                     }
                     // Once the current row has been read through and the 
                     // string constructed then write it to the file using WriteLine.
-                    
+                    writer.WriteLine(currentRow.ToString());
                 }
-
                 // After all rows and columns have been written then close the file.
                 writer.Close();
             }

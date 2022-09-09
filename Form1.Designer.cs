@@ -30,11 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.x10ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.x20ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.x50ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.x100ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,7 +43,19 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.darkModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lightModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.matrixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.halloweenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.christmasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.x10ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.x20ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.x50ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.x100ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,13 +77,6 @@
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelGenerations = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
-            this.darkModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lightModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.matrixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.defaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.halloweenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.christmasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphicsPanel1 = new Game_of_Life.GraphicsPanel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -98,45 +98,6 @@
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
-            // 
-            // newGameToolStripMenuItem
-            // 
-            this.newGameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.x10ToolStripMenuItem,
-            this.x20ToolStripMenuItem,
-            this.x50ToolStripMenuItem,
-            this.x100ToolStripMenuItem});
-            this.newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
-            this.newGameToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
-            this.newGameToolStripMenuItem.Text = "Grid Size";
-            // 
-            // x10ToolStripMenuItem
-            // 
-            this.x10ToolStripMenuItem.Name = "x10ToolStripMenuItem";
-            this.x10ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.x10ToolStripMenuItem.Text = "10x10";
-            this.x10ToolStripMenuItem.Click += new System.EventHandler(this.x10ToolStripMenuItem_Click);
-            // 
-            // x20ToolStripMenuItem
-            // 
-            this.x20ToolStripMenuItem.Name = "x20ToolStripMenuItem";
-            this.x20ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.x20ToolStripMenuItem.Text = "20x20";
-            this.x20ToolStripMenuItem.Click += new System.EventHandler(this.x20ToolStripMenuItem_Click);
-            // 
-            // x50ToolStripMenuItem
-            // 
-            this.x50ToolStripMenuItem.Name = "x50ToolStripMenuItem";
-            this.x50ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.x50ToolStripMenuItem.Text = "50x50";
-            this.x50ToolStripMenuItem.Click += new System.EventHandler(this.x50ToolStripMenuItem_Click);
-            // 
-            // x100ToolStripMenuItem
-            // 
-            this.x100ToolStripMenuItem.Name = "x100ToolStripMenuItem";
-            this.x100ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.x100ToolStripMenuItem.Text = "100x100";
-            this.x100ToolStripMenuItem.Click += new System.EventHandler(this.x100ToolStripMenuItem_Click);
             // 
             // fileToolStripMenuItem
             // 
@@ -249,17 +210,104 @@
             this.christmasToolStripMenuItem,
             this.defaultToolStripMenuItem});
             this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(161, 26);
             this.customizeToolStripMenuItem.Text = "&Customize";
+            // 
+            // darkModeToolStripMenuItem
+            // 
+            this.darkModeToolStripMenuItem.Name = "darkModeToolStripMenuItem";
+            this.darkModeToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
+            this.darkModeToolStripMenuItem.Text = "Dark Mode";
+            this.darkModeToolStripMenuItem.Click += new System.EventHandler(this.darkModeToolStripMenuItem_Click);
+            // 
+            // lightModeToolStripMenuItem
+            // 
+            this.lightModeToolStripMenuItem.Name = "lightModeToolStripMenuItem";
+            this.lightModeToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
+            this.lightModeToolStripMenuItem.Text = "Light Mode";
+            this.lightModeToolStripMenuItem.Click += new System.EventHandler(this.lightModeToolStripMenuItem_Click);
+            // 
+            // matrixToolStripMenuItem
+            // 
+            this.matrixToolStripMenuItem.Name = "matrixToolStripMenuItem";
+            this.matrixToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
+            this.matrixToolStripMenuItem.Text = "Matrix";
+            this.matrixToolStripMenuItem.Click += new System.EventHandler(this.matrixToolStripMenuItem_Click);
+            // 
+            // halloweenToolStripMenuItem
+            // 
+            this.halloweenToolStripMenuItem.Name = "halloweenToolStripMenuItem";
+            this.halloweenToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
+            this.halloweenToolStripMenuItem.Text = "Halloween";
+            this.halloweenToolStripMenuItem.Click += new System.EventHandler(this.halloweenToolStripMenuItem_Click);
+            // 
+            // christmasToolStripMenuItem
+            // 
+            this.christmasToolStripMenuItem.Name = "christmasToolStripMenuItem";
+            this.christmasToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
+            this.christmasToolStripMenuItem.Text = "Christmas";
+            this.christmasToolStripMenuItem.Click += new System.EventHandler(this.christmasToolStripMenuItem_Click);
+            // 
+            // defaultToolStripMenuItem
+            // 
+            this.defaultToolStripMenuItem.Name = "defaultToolStripMenuItem";
+            this.defaultToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
+            this.defaultToolStripMenuItem.Text = "Default";
+            this.defaultToolStripMenuItem.Click += new System.EventHandler(this.defaultToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripTextBox1});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(161, 26);
             this.optionsToolStripMenuItem.Text = "&Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 27);
+            // 
+            // newGameToolStripMenuItem
+            // 
+            this.newGameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.x10ToolStripMenuItem,
+            this.x20ToolStripMenuItem,
+            this.x50ToolStripMenuItem,
+            this.x100ToolStripMenuItem});
+            this.newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
+            this.newGameToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
+            this.newGameToolStripMenuItem.Text = "Grid Size";
+            // 
+            // x10ToolStripMenuItem
+            // 
+            this.x10ToolStripMenuItem.Name = "x10ToolStripMenuItem";
+            this.x10ToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
+            this.x10ToolStripMenuItem.Text = "10x10";
+            this.x10ToolStripMenuItem.Click += new System.EventHandler(this.x10ToolStripMenuItem_Click);
+            // 
+            // x20ToolStripMenuItem
+            // 
+            this.x20ToolStripMenuItem.Name = "x20ToolStripMenuItem";
+            this.x20ToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
+            this.x20ToolStripMenuItem.Text = "20x20";
+            this.x20ToolStripMenuItem.Click += new System.EventHandler(this.x20ToolStripMenuItem_Click);
+            // 
+            // x50ToolStripMenuItem
+            // 
+            this.x50ToolStripMenuItem.Name = "x50ToolStripMenuItem";
+            this.x50ToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
+            this.x50ToolStripMenuItem.Text = "50x50";
+            this.x50ToolStripMenuItem.Click += new System.EventHandler(this.x50ToolStripMenuItem_Click);
+            // 
+            // x100ToolStripMenuItem
+            // 
+            this.x100ToolStripMenuItem.Name = "x100ToolStripMenuItem";
+            this.x100ToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
+            this.x100ToolStripMenuItem.Text = "100x100";
+            this.x100ToolStripMenuItem.Click += new System.EventHandler(this.x100ToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -446,54 +494,6 @@
             this.toolStripStatusLabelGenerations.Name = "toolStripStatusLabelGenerations";
             this.toolStripStatusLabelGenerations.Size = new System.Drawing.Size(114, 20);
             this.toolStripStatusLabelGenerations.Text = "Generations = 0";
-            // 
-            // toolStripTextBox1
-            // 
-            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 27);
-            // 
-            // darkModeToolStripMenuItem
-            // 
-            this.darkModeToolStripMenuItem.Name = "darkModeToolStripMenuItem";
-            this.darkModeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.darkModeToolStripMenuItem.Text = "Dark Mode";
-            this.darkModeToolStripMenuItem.Click += new System.EventHandler(this.darkModeToolStripMenuItem_Click);
-            // 
-            // lightModeToolStripMenuItem
-            // 
-            this.lightModeToolStripMenuItem.Name = "lightModeToolStripMenuItem";
-            this.lightModeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.lightModeToolStripMenuItem.Text = "Light Mode";
-            this.lightModeToolStripMenuItem.Click += new System.EventHandler(this.lightModeToolStripMenuItem_Click);
-            // 
-            // matrixToolStripMenuItem
-            // 
-            this.matrixToolStripMenuItem.Name = "matrixToolStripMenuItem";
-            this.matrixToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.matrixToolStripMenuItem.Text = "Matrix";
-            this.matrixToolStripMenuItem.Click += new System.EventHandler(this.matrixToolStripMenuItem_Click);
-            // 
-            // defaultToolStripMenuItem
-            // 
-            this.defaultToolStripMenuItem.Name = "defaultToolStripMenuItem";
-            this.defaultToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.defaultToolStripMenuItem.Text = "Default";
-            this.defaultToolStripMenuItem.Click += new System.EventHandler(this.defaultToolStripMenuItem_Click);
-            // 
-            // halloweenToolStripMenuItem
-            // 
-            this.halloweenToolStripMenuItem.Name = "halloweenToolStripMenuItem";
-            this.halloweenToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.halloweenToolStripMenuItem.Text = "Halloween";
-            this.halloweenToolStripMenuItem.Click += new System.EventHandler(this.halloweenToolStripMenuItem_Click);
-            // 
-            // christmasToolStripMenuItem
-            // 
-            this.christmasToolStripMenuItem.Name = "christmasToolStripMenuItem";
-            this.christmasToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.christmasToolStripMenuItem.Text = "Christmas";
-            this.christmasToolStripMenuItem.Click += new System.EventHandler(this.christmasToolStripMenuItem_Click);
             // 
             // graphicsPanel1
             // 
