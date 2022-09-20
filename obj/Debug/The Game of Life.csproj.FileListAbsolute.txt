@@ -19,7 +19,6 @@ C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\The Game of L
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\The Game of Life.csproj.CoreCompileInputs.cache
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\Game of Life.exe
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\Game of Life.pdb
-C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\The Game of Life.csproj.SuggestedBindingRedirects.cache
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Xamarin.Forms.Core.dll
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Xamarin.Forms.Platform.dll
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Xamarin.Forms.Xaml.dll

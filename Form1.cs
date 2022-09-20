@@ -50,9 +50,9 @@ namespace Game_of_Life
 
             for (int x = 0; x < universe.GetLength(0); x++)
             {
-                for (int y =0; y < universe.GetLength(1); y++)
+                for (int y = 0; y < universe.GetLength(1); y++)
                 {
-                    
+
                 }
             }
         }
@@ -71,10 +71,10 @@ namespace Game_of_Life
                     if (universe[x, y])
                     {
                         if (sum == 2 || sum == 3)
-                        if (sum == 2 || sum == 3)
-                        {
-                            scratchPad[x, y] = true;
-                        }
+                            if (sum == 2 || sum == 3)
+                            {
+                                scratchPad[x, y] = true;
+                            }
 
                         if (sum < 2 || sum > 3)
                         {
@@ -128,7 +128,7 @@ namespace Game_of_Life
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
                     // A rectangle to represent each cell in pixels
-                    Rectangle cellRect = Rectangle.Empty;   
+                    Rectangle cellRect = Rectangle.Empty;
                     cellRect.X = x * cellWidth;
                     cellRect.Y = y * cellHeight;
                     cellRect.Width = cellWidth;
@@ -149,6 +149,7 @@ namespace Game_of_Life
             gridPen.Dispose();
             cellBrush.Dispose();
         }
+
         private int CountNeighborsToroidal(int x, int y)
         {
             int neighborcount = 0;
@@ -406,6 +407,7 @@ namespace Game_of_Life
                                 writer.Write(".");
                             }
                         }
+
                         writer.Write("\n");
                     }
 
@@ -419,6 +421,7 @@ namespace Game_of_Life
                 MessageBox.Show("There was a problem saving your file.\n" + ex.Message);
             }
         }
+
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
@@ -442,7 +445,10 @@ namespace Game_of_Life
 
                     // If the row begins with '!' then it is a comment
                     // and should be ignored.
-                    if (row.StartsWith("!") == true) { continue; }
+                    if (row.StartsWith("!") == true)
+                    {
+                        continue;
+                    }
 
                     // If the row is not a comment then it is a row of cells.
                     // Increment the maxHeight variable for each row read.
@@ -450,6 +456,7 @@ namespace Game_of_Life
                     {
                         maxHeight++;
                     }
+
                     // Get the length of the current row string
                     // and adjust the maxWidth variable if necessary.
                     maxWidth = row.Length;
@@ -471,7 +478,10 @@ namespace Game_of_Life
                     string row = reader.ReadLine();
                     // If the row begins with '!' then
                     // it is a comment and should be ignored.
-                    if (row.StartsWith("!") == true) { continue; }
+                    if (row.StartsWith("!") == true)
+                    {
+                        continue;
+                    }
 
                     // If the row is not a comment then 
                     // it is a row of cells and needs to be iterated through.
@@ -481,27 +491,38 @@ namespace Game_of_Life
                         {
                             // If row[xPos] is a 'O' (capital O) then
                             // set the corresponding cell in the universe to alive.
-                            if (row[xPos] == 'O') { universe[xPos, maxHeight] = true; }
+                            if (row[xPos] == 'O')
+                            {
+                                universe[xPos, maxHeight] = true;
+                            }
+
                             // If row[xPos] is a '.' (period) then
                             // set the corresponding cell in the universe to dead.
-                            if (row[xPos] == '.') { universe[xPos, maxHeight] = false; }
+                            if (row[xPos] == '.')
+                            {
+                                universe[xPos, maxHeight] = false;
+                            }
 
                         }
                     }
+
                     maxHeight++;
                 }
 
                 // Close the file.
                 reader.Close();
             }
+
             graphicsPanel1.Invalidate();
         }
+
         // Save
         private void savePattern_Click(object sender, EventArgs e)
         {
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.Filter = "All Files|*.*|Cells|*.cells";
-            dlg.FilterIndex = 2; dlg.DefaultExt = "cells";
+            dlg.FilterIndex = 2;
+            dlg.DefaultExt = "cells";
 
 
             if (DialogResult.OK == dlg.ShowDialog())
@@ -525,11 +546,17 @@ namespace Game_of_Life
                     {
                         // If the universe[x,y] is alive then append 'O' (capital O)
                         // to the row string.
-                        if (universe[x, y] == true) { currentRow += 'O'; }
+                        if (universe[x, y] == true)
+                        {
+                            currentRow += 'O';
+                        }
 
                         // Else if the universe[x,y] is dead then append '.' (period)
                         // to the row string.
-                        else if (universe[x, y] == false) { currentRow += '.'; }
+                        else if (universe[x, y] == false)
+                        {
+                            currentRow += '.';
+                        }
                     }
 
                     // Once the current row has been read through and the 
@@ -544,7 +571,71 @@ namespace Game_of_Life
 
         private void customToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string input = "...";
+            ShowInputDialogBox(ref input, "Set grid size", "Grid size", 300, 200);
+        }
+        private static DialogResult ShowInputDialogBox(ref string input, string prompt, string title = "Title", int width = 300, int height = 200)
+        {
+            //This function creates the custom input dialog box by individually creating the different window elements and adding them to the dialog box
 
+            //Specify the size of the window using the parameters passed
+            Size size = new Size(width, height);
+            //Create a new form using a System.Windows Form
+            Form inputBox = new Form();
+
+            inputBox.FormBorderStyle = FormBorderStyle.FixedDialog;
+            inputBox.ClientSize = size;
+            //Set the window title using the parameter passed
+            inputBox.Text = title;
+
+            //Create a new label to hold the prompt
+            Label label = new Label();
+            label.Text = prompt;
+            label.Location = new Point(5, 5);
+            label.Width = size.Width - 10;
+            inputBox.Controls.Add(label);
+
+            //Create a textbox to accept the user's input
+            TextBox textBox = new TextBox();
+            textBox.Size = new Size(size.Width / 3, 23);
+            textBox.Location = new Point(5, label.Location.Y + 20);
+            textBox.Text = input;
+            inputBox.Controls.Add(textBox);
+
+            TextBox textBox2 = new TextBox();
+            textBox2.Size = new Size(size.Width / 3, 23);
+            textBox2.Location = new Point(5, label.Location.Y + 40);
+            textBox2.Text = input;
+            inputBox.Controls.Add(textBox2);
+
+            //Create an OK Button 
+            Button okButton = new Button();
+            okButton.DialogResult = DialogResult.OK;
+            okButton.Name = "okButton";
+            okButton.Size = new Size(75, 23);
+            okButton.Text = "&OK";
+            okButton.Location = new Point(size.Width - 80 - 80, size.Height - 30);
+            inputBox.Controls.Add(okButton);
+
+            //Create a Cancel Button
+            Button cancelButton = new Button();
+            cancelButton.DialogResult = DialogResult.Cancel;
+            cancelButton.Name = "cancelButton";
+            cancelButton.Size = new Size(75, 23);
+            cancelButton.Text = "&Cancel";
+            cancelButton.Location = new Point(size.Width - 80, size.Height - 30);
+            inputBox.Controls.Add(cancelButton);
+
+            //Set the input box's buttons to the created OK and Cancel Buttons respectively so the window appropriately behaves with the button clicks
+            inputBox.AcceptButton = okButton;
+            inputBox.CancelButton = cancelButton;
+
+            //Show the window dialog box 
+            DialogResult result = inputBox.ShowDialog();
+            input = textBox.Text;
+
+            //After input has been submitted, return the input value
+            return result;
         }
     }
 }
