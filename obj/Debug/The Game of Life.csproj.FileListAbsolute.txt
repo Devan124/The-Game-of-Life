@@ -13,10 +13,18 @@ C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Game of Life.
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Game of Life.exe
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Game of Life.pdb
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\The Game of Life.csproj.AssemblyReference.cache
-C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\The Game of Life.csproj.SuggestedBindingRedirects.cache
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\Game_of_Life.Form1.resources
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\Game_of_Life.Properties.Resources.resources
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\The Game of Life.csproj.GenerateResource.cache
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\The Game of Life.csproj.CoreCompileInputs.cache
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\Game of Life.exe
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\Game of Life.pdb
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\The Game of Life.csproj.SuggestedBindingRedirects.cache
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Xamarin.Forms.Core.dll
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Xamarin.Forms.Platform.dll
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Xamarin.Forms.Xaml.dll
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Xamarin.Forms.Core.pdb
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Xamarin.Forms.Core.xml
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Xamarin.Forms.Xaml.pdb
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Xamarin.Forms.Xaml.xml
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\The Game of Life.csproj.CopyComplete
