@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -26,36 +27,25 @@ namespace Game_of_Life
         // Drawing colors
         Color gridColor = Color.FromArgb(0, 0, 0);
         Color cellColor = Color.FromArgb(222, 184, 135);
+        Color BackgroundColor = Color.FromArgb(255,255,255);
+        Color Temp;
 
         // The Timer class
         Timer timer = new Timer();
 
         // Generation count
         int generations = 0;
-
+        int AliveCells = 0;
         public Form1()
         {
             InitializeComponent();
             // Setup the timer
-
-            timer.Interval = 100; // milliseconds
+            this.Text = "Game of Life";
+            timer.Interval = 1000; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
         }
 
-
-        public void Randomize(bool[,] universe, int max)
-        {
-            Random randomNum = new Random();
-
-            for (int x = 0; x < universe.GetLength(0); x++)
-            {
-                for (int y = 0; y < universe.GetLength(1); y++)
-                {
-
-                }
-            }
-        }
 
 
         // Calculate the next generation of cells
@@ -96,11 +86,12 @@ namespace Game_of_Life
             universe = scratchPad;
             scratchPad = temp;
             generations++;
+            AliveCells = CountLivingCells();
             toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
+            cellAlive.Text = "Alive Cells = " + AliveCells;
             graphicsPanel1.Invalidate();
             Array.Clear(temp, 0, temp.Length);
         }
-
         // The event called by the timer every Interval milliseconds.
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -120,6 +111,7 @@ namespace Game_of_Life
 
             // A Brush for filling living cells interiors (color)
             Brush cellBrush = new SolidBrush(cellColor);
+            Brush BackgroundBrush = new SolidBrush(BackgroundColor);
 
             // Iterate through the universe in the y, top to bottom
             for (int y = 0; y < universe.GetLength(1); y++)
@@ -139,6 +131,10 @@ namespace Game_of_Life
                     {
                         e.Graphics.FillRectangle(cellBrush, cellRect);
                     }
+                    else
+                    {
+                        e.Graphics.FillRectangle(BackgroundBrush, cellRect);
+                    }
 
                     // Outline the cell with a pen
                     e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
@@ -148,6 +144,7 @@ namespace Game_of_Life
             // Cleaning up pens and brushes
             gridPen.Dispose();
             cellBrush.Dispose();
+            BackgroundBrush.Dispose();
         }
 
         private int CountNeighborsToroidal(int x, int y)
@@ -194,6 +191,23 @@ namespace Game_of_Life
             }
 
             return neighborcount;
+        }
+        private int CountLivingCells()
+        {
+            int count = 0;
+            int xLen = universe.GetLength(0);
+            int yLen = universe.GetLength(1);
+            for (int y = 0; y < universe.GetLength(0); y++)
+            {
+                for (int x = 0; x < universe.GetLength(1); x++)
+                {
+                    if (universe[x, y] == true)
+                    {
+                        count++;
+                    }
+                }
+            }
+            return count;
         }
 
         private void graphicsPanel1_MouseClick(object sender, MouseEventArgs e)
@@ -340,7 +354,7 @@ namespace Game_of_Life
 
         private void darkModeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            graphicsPanel1.BackColor = Color.FromArgb(38, 28, 44);
+            BackgroundColor = Color.FromArgb(38, 28, 44);
             gridColor = Color.FromArgb(92, 82, 127);
             cellColor = Color.FromArgb(110, 133, 178);
             graphicsPanel1.Invalidate();
@@ -348,7 +362,7 @@ namespace Game_of_Life
 
         private void lightModeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            graphicsPanel1.BackColor = Color.FromArgb(232, 246, 239);
+            BackgroundColor = Color.FromArgb(232, 246, 239);
             gridColor = Color.FromArgb(39, 123, 192);
             cellColor = Color.FromArgb(184, 223, 216);
             graphicsPanel1.Invalidate();
@@ -356,7 +370,7 @@ namespace Game_of_Life
 
         private void matrixToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            graphicsPanel1.BackColor = Color.FromArgb(13, 2, 8);
+            BackgroundColor = Color.FromArgb(13, 2, 8);
             gridColor = Color.FromArgb(0, 59, 0);
             cellColor = Color.FromArgb(0, 255, 65);
             graphicsPanel1.Invalidate();
@@ -364,7 +378,7 @@ namespace Game_of_Life
 
         private void defaultToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            graphicsPanel1.BackColor = Color.FromArgb(255, 255, 255);
+            BackgroundColor = Color.FromArgb(255, 255, 255);
             gridColor = Color.FromArgb(0, 0, 0);
             cellColor = Color.FromArgb(222, 184, 135);
             graphicsPanel1.Invalidate();
@@ -372,7 +386,7 @@ namespace Game_of_Life
 
         private void halloweenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            graphicsPanel1.BackColor = Color.FromArgb(33, 23, 23);
+            BackgroundColor = Color.FromArgb(33, 23, 23);
             gridColor = Color.FromArgb(163, 74, 40);
             cellColor = Color.FromArgb(245, 139, 84);
             graphicsPanel1.Invalidate();
@@ -380,7 +394,7 @@ namespace Game_of_Life
 
         private void christmasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            graphicsPanel1.BackColor = Color.FromArgb(165, 56, 66);
+            BackgroundColor = Color.FromArgb(165, 56, 66);
             gridColor = Color.FromArgb(66, 133, 91);
             cellColor = Color.FromArgb(92, 148, 55);
             graphicsPanel1.Invalidate();
@@ -389,48 +403,43 @@ namespace Game_of_Life
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string fileName = AppDomain.CurrentDomain.BaseDirectory + "GolPattern.txt";
-            try
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "All Files|*.*|Text|*.txt";
+            dlg.FilterIndex = 2;
+            if (DialogResult.OK == dlg.ShowDialog())
             {
-                using (var writer = new StreamWriter(fileName))
+                StreamWriter writer = new StreamWriter(dlg.FileName);
+                writer.WriteLine("!This is my comment.");
+                for (int y = 0; y < universe.GetLength(0); y++)
                 {
-                    for (int x = 0; x < universe.GetLength(0); x++)
+                    String currentRow = string.Empty;
+                    for (int x = 0; x < universe.GetLength(1); x++)
                     {
-                        for (int z = 0; z < universe.GetLength(1); z++)
-                        {
-
-                            if (universe[x, z] == true)
-                            {
-                                writer.Write("O");
-                            }
-                            else
-                            {
-                                writer.Write(".");
-                            }
+                        if (universe[x, y] == true) 
+                        { 
+                            currentRow += 'O'; 
                         }
-
-                        writer.Write("\n");
+                        else if (universe[x, y] == false) 
+                        {
+                            currentRow += '.'; 
+                        }
                     }
-
-                    writer.Flush();
-                    writer.Close();
-                    MessageBox.Show("File saved!");
+                    writer.WriteLine(currentRow);
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("There was a problem saving your file.\n" + ex.Message);
+                writer.Close();
             }
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string fileName = AppDomain.CurrentDomain.BaseDirectory + "GolPattern.txt";
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "All Files|*.*|Text|*.txt";
             dlg.FilterIndex = 2;
 
             if (DialogResult.OK == dlg.ShowDialog())
             {
-                StreamReader reader = new StreamReader(dlg.FileName);
+                StreamReader reader = new StreamReader(fileName);
 
                 // Create a couple variables to calculate the width and height
                 // of the data in the file.
@@ -516,68 +525,18 @@ namespace Game_of_Life
             graphicsPanel1.Invalidate();
         }
 
-        // Save
-        private void savePattern_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = "All Files|*.*|Cells|*.cells";
-            dlg.FilterIndex = 2;
-            dlg.DefaultExt = "cells";
-
-
-            if (DialogResult.OK == dlg.ShowDialog())
-            {
-                StreamWriter writer = new StreamWriter(dlg.FileName);
-
-                // Write any comments you want to include first.
-                // Prefix all comment strings with an exclamation point.
-                // Use WriteLine to write the strings to the file. 
-                // It appends a CRLF for you.
-                writer.WriteLine("!This is my comment.");
-
-                // Iterate through the universe one row at a time.
-                for (int y = 0; y < universe.GetLength(0); y++)
-                {
-                    // Create a string to represent the current row.
-                    String currentRow = string.Empty;
-
-                    // Iterate through the current row one cell at a time.
-                    for (int x = 0; x < universe.GetLength(1); x++)
-                    {
-                        // If the universe[x,y] is alive then append 'O' (capital O)
-                        // to the row string.
-                        if (universe[x, y] == true)
-                        {
-                            currentRow += 'O';
-                        }
-
-                        // Else if the universe[x,y] is dead then append '.' (period)
-                        // to the row string.
-                        else if (universe[x, y] == false)
-                        {
-                            currentRow += '.';
-                        }
-                    }
-
-                    // Once the current row has been read through and the 
-                    // string constructed then write it to the file using WriteLine.
-                    writer.WriteLine(currentRow);
-                }
-
-                // After all rows and columns have been written then close the file.
-                writer.Close();
-            }
-        }
-
         private void customToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string input = "...";
-            ShowInputDialogBox(ref input, "Set grid size", "Grid size", 300, 200);
+            ShowInputDialogBox(ref mHeight, ref mWidth, "Set grid size", "Grid size", 300, 200);
+            universe = new bool[mWidth, mHeight];
+            scratchPad = new bool[mWidth, mHeight];
         }
-        private static DialogResult ShowInputDialogBox(ref string input, string prompt, string title = "Title", int width = 300, int height = 200)
+        private static bool[,] ShowInputDialogBox(ref int mHeight, ref int mWidth, string prompt, string title = "Title", int width = 300, int height = 200)
         {
-            //This function creates the custom input dialog box by individually creating the different window elements and adding them to the dialog box
 
+            int zheight;
+            int zwidth;
+            //This function creates the custom input dialog box by individually creating the different window elements and adding them to the dialog box
             //Specify the size of the window using the parameters passed
             Size size = new Size(width, height);
             //Create a new form using a System.Windows Form
@@ -597,15 +556,29 @@ namespace Game_of_Life
 
             //Create a textbox to accept the user's input
             TextBox textBox = new TextBox();
-            textBox.Size = new Size(size.Width / 3, 23);
+            textBox.Size = new Size(size.Width - 200, 23);
             textBox.Location = new Point(5, label.Location.Y + 20);
-            textBox.Text = input;
+            if (int.TryParse(textBox.Text, out zwidth))
+            {
+                mWidth = zwidth;
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid integer!");
+            }
             inputBox.Controls.Add(textBox);
 
             TextBox textBox2 = new TextBox();
-            textBox2.Size = new Size(size.Width / 3, 23);
+            textBox2.Size = new Size(size.Width - 200, 23);
             textBox2.Location = new Point(5, label.Location.Y + 40);
-            textBox2.Text = input;
+            if (int.TryParse(textBox2.Text, out zheight))
+            {
+                mHeight = zheight;
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid integer!");
+            }
             inputBox.Controls.Add(textBox2);
 
             //Create an OK Button 
@@ -632,10 +605,150 @@ namespace Game_of_Life
 
             //Show the window dialog box 
             DialogResult result = inputBox.ShowDialog();
-            input = textBox.Text;
+            bool[,] returnArray = new bool[mWidth, mHeight];
 
             //After input has been submitted, return the input value
-            return result;
+            return returnArray;
+        }
+
+        private void byTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Random rng = new Random(DateTime.Now.Second);
+            for (int x = 0; x < universe.GetLength(0); x++)
+            {
+                for (int y = 0; y < universe.GetLength(1); y++)
+                {
+                    int test = rng.Next(10);
+                    if ((test % 2) == 0) { universe[x, y] = true; }
+                    else { universe[x, y] = false; }
+                }
+            }
+            generations = 0;
+            AliveCells = CountLivingCells();
+            cellAlive.Text = "Alive Cells = " + AliveCells.ToString();
+            graphicsPanel1.Invalidate();
+        }
+
+        private void bySeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ModalDialog SeedDia = new ModalDialog();
+            SeedDia.Text = "Seed Generator";
+
+            int stateOfMind;
+            Random rng = new Random(SeedDia.mySeed);
+
+            if (SeedDia.ShowDialog() == DialogResult.OK)
+            {
+                for (int y = 0; y < universe.GetLength(1); y++)
+                {
+                    for (int x = 0; x < universe.GetLength(0); x++)
+                    {
+                        stateOfMind = rng.Next(0, 2);
+                        if (stateOfMind == 0)
+                        {
+                            universe[x, y] = false;
+                        }
+                        else
+                        {
+                            universe[x, y] = true;
+                        }
+
+                    }
+                }
+                AliveCells = CountLivingCells();
+                cellAlive.Text = "Alive Cells = " + AliveCells.ToString();
+                graphicsPanel1.Invalidate();
+
+            }
+            else
+            {
+                SeedDia.Close();
+            }
+
+            graphicsPanel1.Invalidate();
+        }
+
+        private void cellToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+
+            colorDialog.Color = cellColor;
+
+            if (DialogResult.OK == colorDialog.ShowDialog())
+            {
+                cellColor = colorDialog.Color;
+
+            }
+            graphicsPanel1.Invalidate();
+        }
+
+        private void gridToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+
+            colorDialog.Color = cellColor;
+
+            if (DialogResult.OK == colorDialog.ShowDialog())
+            {
+                gridColor = colorDialog.Color;
+
+            }
+            graphicsPanel1.Invalidate();
+        }
+
+        private void backgroundToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+
+            colorDialog.Color = cellColor;
+
+            if (DialogResult.OK == colorDialog.ShowDialog())
+            {
+                BackgroundColor = colorDialog.Color;
+
+            }
+            graphicsPanel1.Invalidate();
+        }
+
+        private void onToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Temp = gridColor;
+            gridColor = BackgroundColor;
+        }
+
+        private void offToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gridColor = Temp;
+        }
+
+        private void x1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            timer.Interval = 1000;
+        }
+
+        private void xToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            timer.Interval = 1000 / 5;
+        }
+
+        private void xToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            timer.Interval = 1000 / 10;
+        }
+
+        private void xToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            timer.Interval = 1000 / 25;
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            timer.Interval = 1000 / 100;
+        }
+
+        private void xToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            timer.Interval = 1000 / 1000;
         }
     }
 }

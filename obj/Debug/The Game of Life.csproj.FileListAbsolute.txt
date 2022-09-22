@@ -27,3 +27,5 @@ C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Xamarin.Forms
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Xamarin.Forms.Xaml.pdb
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\bin\Debug\Xamarin.Forms.Xaml.xml
 C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\The Game of Life.csproj.CopyComplete
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\The Game of Life.csproj.SuggestedBindingRedirects.cache
+C:\Users\devan\OneDrive\Documents\Game of Life Completed\obj\Debug\Game_of_Life.ModalDialog.resources
